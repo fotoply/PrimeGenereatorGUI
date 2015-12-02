@@ -1,5 +1,6 @@
 package model;
 
+import javax.management.InstanceNotFoundException;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
  * @author Niels Norberg
  */
 public class PrimeListFileHandler {
+
+    private File file;
 
     /**
      * Loads the given file and parses it for a list of integers to be loaded.
@@ -22,13 +25,21 @@ public class PrimeListFileHandler {
      * <i color="red">2,3<br></br>
      * 5,7</i>
      *
-     * @param file The file to read the data from
      * @return a list of integers loaded from the file
      * @throws FileNotFoundException is thrown if the file was not found
      */
-    public ArrayList<Integer> load(File file) throws FileNotFoundException {
+    public ArrayList<Integer> load() throws InstanceNotFoundException {
+        if(file == null) {
+            throw new InstanceNotFoundException("Please set the file first.");
+        }
+
         ArrayList<Integer> ints = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader(file)); // Load the specified file
+        BufferedReader reader = null; // Load the specified file
+        try {
+            reader = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         try {
             String line = reader.readLine(); // Read the first line of the file
 
@@ -50,10 +61,36 @@ public class PrimeListFileHandler {
         return ints;
     }
 
-    public void save(int prime, File file) {
+    /**
+     * Saves a given integer on a new line in the file given.
+     * @param prime the integer to save
+     */
+    public void save(int prime) throws InstanceNotFoundException {
+        if(file == null) {
+            throw new InstanceNotFoundException("Please set the file first.");
+        }
         try {
             PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file, true))); // Create a write for the file
-            writer.println(prime); // Write the new number to the file
+            writer.println(prime); // Write the new number to the buffer
+            writer.flush(); // Flush the buffer to disk
+            writer.close(); // Close the writer again to avoid it taking up memory and avoid memory leaks
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Save a list of integers to the disk in the given file. Will append
+     * @param numbers a list of integers to write to disk
+     */
+    public void save(ArrayList<Integer> numbers) throws InstanceNotFoundException {
+        try {
+            if(file == null) {
+                throw new InstanceNotFoundException("Please set the file first.");
+            }
+            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file, true))); // Create a write for the file
+            numbers.forEach(writer::println); // For each number in the list of numbers, add it to the buffer.
+            writer.flush(); // Make sure that it is actually written to disk by flushing the buffer
             writer.close(); // Close the writer again to avoid it taking up memory and avoid memory leaks
         } catch (IOException e) {
             e.printStackTrace();
