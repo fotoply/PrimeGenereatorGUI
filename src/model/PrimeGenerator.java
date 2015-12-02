@@ -16,7 +16,7 @@ public class PrimeGenerator {
             if (prime > sqrt) { // IF the current element is larger than the sqrt of it, then it cannot be a primefactor for it
                 break;
             }
-            if (number % prime == 0) { // IF i modulus with the current prime is equal to 0, AKA it equally divides, then it is not a prime
+            if (number % prime == 0) { // IF number modulus with the current prime is equal to 0, AKA it equally divides, then it is not a prime
                 maybePrime = false;
                 break;
             }
