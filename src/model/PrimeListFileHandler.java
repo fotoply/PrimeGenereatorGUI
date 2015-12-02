@@ -14,6 +14,14 @@ public class PrimeListFileHandler {
 
     private File file;
 
+    public void setFile(File file) {
+        if(file == null || file.isDirectory() || !file.canRead() || !file.canWrite() || file.exists()) {
+            throw new IllegalArgumentException("The file is not valid");
+        }
+
+        this.file = file;
+    }
+
     /**
      * Loads the given file and parses it for a list of integers to be loaded.
      * The list can either be separated by commas or by newlines, but not by both.
