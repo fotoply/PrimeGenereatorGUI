@@ -11,26 +11,27 @@
           <ColumnConstraints hgrow="ALWAYS" maxWidth="354.0" minWidth="0.0" prefWidth="343.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="323.0" minHeight="10.0" prefHeight="312.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="87.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="300.0" prefWidth="300.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="76.0" prefWidth="354.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="23.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="fileChosenLabel" text="File chosen: none" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Button fx:id="chooseFileButton" mnemonicParsing="false" onAction="#chooseFileClicked" text="Choose file" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Label fx:id="currentNumberLabel" text="Current number: " GridPane.halignment="CENTER" />
+                  <Button fx:id="chooseFileButton" mnemonicParsing="false" onAction="#chooseFileClicked" text="Choose file" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Button fx:id="startButton" mnemonicParsing="false" onAction="#startButtonClicked" text="Start" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <TextField fx:id="currentFileField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <ListView fx:id="primeTableView" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+            <ListView fx:id="primeTableView" prefHeight="311.0" prefWidth="354.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
          </children>
       </GridPane>
    </children>

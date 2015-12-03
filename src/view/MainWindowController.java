@@ -1,5 +1,6 @@
 package view;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -24,18 +25,19 @@ public class MainWindowController {
 
     ObservableList<Integer> primes = FXCollections.observableArrayList();
     PrimeListFileHandler fileHandler = new PrimeListFileHandler();
+    PrimeGenerator generator = new PrimeGenerator();
 
     @FXML
     private Button chooseFileButton;
 
     @FXML
-    private Label fileChosenLabel;
-
-    @FXML
-    private Label currentNumberLabel;
+    private TextField currentFileField;
 
     @FXML
     private ListView<Integer> primeTableView;
+
+    @FXML
+    private Button startButton;
 
 
     @FXML
@@ -44,19 +46,10 @@ public class MainWindowController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose the file to read from/write to.");
         File selectedFile = fileChooser.showOpenDialog(chooseFileButton.getScene().getWindow());
+        currentFileField.setText("File: " + selectedFile.getPath());
 
         fileHandler.setFile(selectedFile);
         primes.addAll(fileHandler.load());
-
-        Thread calculatorThread = new Thread(()->{
-            PrimeGenerator generator = new PrimeGenerator();
-            if(primes.size() > 0) {
-                generator.currentNumber = primes.get(primes.size()-1);
-            }
-            generator.primes = primes;
-            generator.run();
-        });
-        calculatorThread.start();
 
         primes.addListener((ListChangeListener<? super Integer>) c -> {
             c.next();
@@ -70,6 +63,26 @@ public class MainWindowController {
             }
         });
 
+    }
+
+    @FXML
+    private void startButtonClicked() {
+        if(startButton.getText().equals("Start")) {
+            startButton.setText("Pause");
+
+            Thread calculatorThread = new Thread(()->{
+                if(primes.size() > 0) {
+                    generator.currentNumber = primes.get(primes.size()-1);
+                }
+                generator.primes = primes;
+                generator.run();
+            });
+            calculatorThread.setDaemon(true);
+            calculatorThread.start();
+        } else {
+            generator.shouldRun = false;
+            startButton.setText("Start");
+        }
     }
 
     @FXML
