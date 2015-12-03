@@ -9,7 +9,24 @@ import javafx.collections.ObservableList;
  * @author Niels Norberg
  */
 public class PrimeGenerator {
-    public static boolean isPrime(int number, ObservableList<Integer> primes) {
+    public int currentNumber = 4;
+    public volatile boolean shouldRun = true;
+    public ObservableList<Integer> primes;
+
+    public void run() {
+        while (shouldRun) {
+            currentNumber++;
+            if(isPrime(currentNumber)) {
+                System.out.println(currentNumber);
+                primes.add(currentNumber);
+            }
+        }
+    }
+
+    public boolean isPrime(int number) {
+        if(number == 2 || number == 3) {
+            return true;
+        }
         boolean maybePrime = true;
         int sqrt = (int)(0.5*(600.0+(number/600.0))); // Rough estimate of the sqrt of the number i
         for (Integer prime : primes) { // Iterate through the list of known primes

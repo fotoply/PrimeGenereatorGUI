@@ -15,7 +15,7 @@ public class PrimeListFileHandler {
     private File file;
 
     public void setFile(File file) {
-        if(file == null || file.isDirectory() || !file.canRead() || !file.canWrite() || file.exists()) {
+        if(file == null || file.isDirectory() || !file.canRead() || !file.canWrite()) {
             throw new IllegalArgumentException("The file is not valid");
         }
 
