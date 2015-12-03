@@ -6,10 +6,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import model.PrimeGenerator;
 import model.PrimeListFileHandler;
@@ -38,13 +35,8 @@ public class MainWindowController {
     private Label currentNumberLabel;
 
     @FXML
-    private TableView<Integer> primeTableView;
+    private ListView<Integer> primeTableView;
 
-    @FXML
-    private TableColumn<Integer, Integer> IDTableColumn;
-
-    @FXML
-    private TableColumn<Integer, Integer> valueTableColumn;
 
     @FXML
     void chooseFileClicked(ActionEvent event) throws InstanceNotFoundException {
@@ -58,14 +50,16 @@ public class MainWindowController {
 
         Thread calculatorThread = new Thread(()->{
             PrimeGenerator generator = new PrimeGenerator();
-            generator.currentNumber = primes.get(primes.size()-1);
-            System.out.println(generator.currentNumber);
+            if(primes.size() > 0) {
+                generator.currentNumber = primes.get(primes.size()-1);
+            }
             generator.primes = primes;
             generator.run();
         });
-        calculatorThread.run();
+        calculatorThread.start();
 
         primes.addListener((ListChangeListener<? super Integer>) c -> {
+            c.next();
             if(c.getAddedSize() > 1) {
             } else {
                 try {
@@ -80,8 +74,6 @@ public class MainWindowController {
 
     @FXML
     private void initialize() {
-        valueTableColumn.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue()).asObject());
-
         primeTableView.setItems(primes);
     }
 

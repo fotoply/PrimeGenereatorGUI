@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
  * @author Niels Norberg
  */
 public class PrimeGenerator {
-    public int currentNumber = 4;
+    public int currentNumber = 1;
     public volatile boolean shouldRun = true;
     public ObservableList<Integer> primes;
 
@@ -17,7 +17,6 @@ public class PrimeGenerator {
         while (shouldRun) {
             currentNumber++;
             if(isPrime(currentNumber)) {
-                System.out.println(currentNumber);
                 primes.add(currentNumber);
             }
         }

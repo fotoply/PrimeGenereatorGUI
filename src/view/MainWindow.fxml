@@ -30,12 +30,7 @@
                   <Label fx:id="currentNumberLabel" text="Current number: " GridPane.halignment="CENTER" />
                </children>
             </GridPane>
-            <TableView fx:id="primeTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="329.0" prefWidth="198.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-               <columns>
-                  <TableColumn fx:id="IDTableColumn" minWidth="0.0" prefWidth="0.0" text="N" />
-                  <TableColumn fx:id="valueTableColumn" minWidth="250.0" prefWidth="325.0" text="N'th prime number" />
-               </columns>
-            </TableView>
+            <ListView fx:id="primeTableView" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
          </children>
       </GridPane>
    </children>
