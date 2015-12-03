@@ -38,7 +38,8 @@ public class MainWindowController {
 
     @FXML
     private Button startButton;
-
+    @FXML
+    private TextField jumpToField;
 
     @FXML
     void chooseFileClicked(ActionEvent event) throws InstanceNotFoundException {
@@ -56,6 +57,17 @@ public class MainWindowController {
             originalIndex = 0;
         }
 
+    }
+
+    @FXML
+    private void jumpToClicked() {
+        try {
+            int N = Integer.parseInt(jumpToField.getText()) - 1;
+            primeTableView.scrollTo(N);
+            primeTableView.getSelectionModel().select(N);
+        } catch (Exception e) {
+
+        }
     }
 
     @FXML

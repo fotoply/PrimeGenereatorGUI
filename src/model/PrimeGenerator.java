@@ -32,7 +32,7 @@ public class PrimeGenerator {
         boolean maybePrime = true;
         int sqrt = (int)(0.5*(600.0+(number/600.0))); // Rough estimate of the sqrt of the number i
         for (Integer prime : primes) { // Iterate through the list of known primes
-            if (prime > sqrt) { // IF the current element is larger than the sqrt of it, then it cannot be a primefactor for it
+            if (prime >= sqrt) { // IF the current element is larger than the sqrt of it, then it cannot be a primefactor for it
                 break;
             }
             if (number % prime == 0) { // IF number modulus with the current prime is equal to 0, AKA it equally divides, then it is not a prime
