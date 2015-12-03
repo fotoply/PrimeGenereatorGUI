@@ -23,9 +23,11 @@ import java.util.ArrayList;
  */
 public class MainWindowController {
 
-    volatile ObservableList<Integer> primes = FXCollections.observableArrayList();
+    ObservableList<Integer> primes = FXCollections.observableArrayList();
     PrimeListFileHandler fileHandler = new PrimeListFileHandler();
     PrimeGenerator generator = new PrimeGenerator();
+    private int originalIndex = 0;
+    private Thread calculatorThread;
 
     @FXML
     private Button chooseFileButton;
@@ -51,16 +53,20 @@ public class MainWindowController {
         fileHandler.setFile(selectedFile);
         primes.clear();
         primes.addAll(fileHandler.load());
+        originalIndex = primes.size()-1;
+        if(originalIndex == -1) {
+            originalIndex = 0;
+        }
 
     }
 
     @FXML
-    private void startButtonClicked() {
+    private void startButtonClicked() throws InstanceNotFoundException {
         if(startButton.getText().equals("Start")) {
             startButton.setText("Pause");
 
             generator.shouldRun = true;
-            Thread calculatorThread = new Thread(()->{
+            calculatorThread = new Thread(()->{
                 if(primes.size() > 0) {
                     generator.currentNumber = primes.get(primes.size()-1);
                 }
@@ -71,6 +77,11 @@ public class MainWindowController {
             calculatorThread.start();
         } else {
             generator.shouldRun = false;
+            while (calculatorThread.isAlive())  {
+
+            }
+            fileHandler.save(primes.subList(originalIndex,primes.size()));
+            originalIndex = primes.size()-1;
             startButton.setText("Start");
         }
     }

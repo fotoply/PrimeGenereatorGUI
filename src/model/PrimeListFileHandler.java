@@ -4,6 +4,7 @@ import javax.management.InstanceNotFoundException;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created 12/1/15
@@ -91,7 +92,7 @@ public class PrimeListFileHandler {
      * Save a list of integers to the disk in the given file. Will append
      * @param numbers a list of integers to write to disk
      */
-    public void save(ArrayList<Integer> numbers) throws InstanceNotFoundException {
+    public void save(List<Integer> numbers) throws InstanceNotFoundException {
         try {
             if(file == null) {
                 throw new InstanceNotFoundException("Please set the file first.");
