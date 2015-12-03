@@ -1,7 +1,8 @@
 package model;
 
-import javafx.animation.Interpolator;
 import javafx.collections.ObservableList;
+
+import javax.management.InstanceNotFoundException;
 
 /**
  * Created 12/2/15
@@ -12,12 +13,14 @@ public class PrimeGenerator {
     public int currentNumber = 1;
     public volatile boolean shouldRun = true;
     public ObservableList<Integer> primes;
+    public PrimeListFileHandler fileHandler;
 
-    public void run() {
+    public void run() throws InstanceNotFoundException {
         while (shouldRun) {
             currentNumber++;
             if(isPrime(currentNumber)) {
                 primes.add(currentNumber);
+                fileHandler.save(currentNumber);
             }
         }
     }
