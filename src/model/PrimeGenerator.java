@@ -18,7 +18,7 @@ public class PrimeGenerator {
     public void run() throws InstanceNotFoundException {
         while (shouldRun) {
             currentNumber++;
-            if(isPrime(currentNumber)) {
+            if (isPrime(currentNumber)) {
                 primes.add(currentNumber);
                 fileHandler.save(currentNumber);
             }
@@ -26,11 +26,11 @@ public class PrimeGenerator {
     }
 
     public boolean isPrime(int number) {
-        if(number == 2 || number == 3) {
+        if (number == 2 || number == 3) {
             return true;
         }
         boolean maybePrime = true;
-        int sqrt = (int)(0.5*(600.0+(number/600.0))); // Rough estimate of the sqrt of the number i
+        int sqrt = (int) (0.5 * (600.0 + (number / 600.0))); // Rough estimate of the sqrt of the number i
         for (Integer prime : primes) { // Iterate through the list of known primes
             if (prime >= sqrt) { // IF the current element is larger than the sqrt of it, then it cannot be a primefactor for it
                 break;

@@ -2,7 +2,6 @@ package model;
 
 import javax.management.InstanceNotFoundException;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class PrimeListFileHandler {
     private File file;
 
     public void setFile(File file) {
-        if(file == null || file.isDirectory() || !file.canRead() || !file.canWrite()) {
+        if (file == null || file.isDirectory() || !file.canRead() || !file.canWrite()) {
             throw new IllegalArgumentException("The file is not valid");
         }
 
@@ -38,7 +37,7 @@ public class PrimeListFileHandler {
      * @throws FileNotFoundException is thrown if the file was not found
      */
     public ArrayList<Integer> load() throws InstanceNotFoundException {
-        if(file == null) {
+        if (file == null) {
             throw new InstanceNotFoundException("Please set the file first.");
         }
 
@@ -56,8 +55,8 @@ public class PrimeListFileHandler {
                 do {
                     ints.add(Integer.parseInt(line));
                 } while ((line = reader.readLine()) != null);
-            } else if(line != null && line.contains(",")) { // If the file contains any commas, read it as comma separated
-                for (String object: line.split(",")) {
+            } else if (line != null && line.contains(",")) { // If the file contains any commas, read it as comma separated
+                for (String object : line.split(",")) {
                     ints.add(Integer.parseInt(object));
                 }
             }
@@ -72,10 +71,11 @@ public class PrimeListFileHandler {
 
     /**
      * Saves a given integer on a new line in the file given.
+     *
      * @param prime the integer to save
      */
     public void save(int prime) throws InstanceNotFoundException {
-        if(file == null) {
+        if (file == null) {
             throw new InstanceNotFoundException("Please set the file first.");
         }
         try {
@@ -90,11 +90,12 @@ public class PrimeListFileHandler {
 
     /**
      * Save a list of integers to the disk in the given file. Will append
+     *
      * @param numbers a list of integers to write to disk
      */
     public void save(List<Integer> numbers) throws InstanceNotFoundException {
         try {
-            if(file == null) {
+            if (file == null) {
                 throw new InstanceNotFoundException("Please set the file first.");
             }
             PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file, true))); // Create a write for the file

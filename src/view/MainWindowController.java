@@ -52,8 +52,8 @@ public class MainWindowController {
         fileHandler.setFile(selectedFile);
         primes.clear();
         primes.addAll(fileHandler.load());
-        originalIndex = primes.size()-1;
-        if(originalIndex == -1) {
+        originalIndex = primes.size() - 1;
+        if (originalIndex == -1) {
             originalIndex = 0;
         }
 
@@ -72,13 +72,13 @@ public class MainWindowController {
 
     @FXML
     private void startButtonClicked() throws InstanceNotFoundException {
-        if(startButton.getText().equals("Start")) {
+        if (startButton.getText().equals("Start")) {
             startButton.setText("Pause");
 
             generator.shouldRun = true;
-            calculatorThread = new Thread(()->{
-                if(primes.size() > 0) {
-                    generator.currentNumber = primes.get(primes.size()-1);
+            calculatorThread = new Thread(() -> {
+                if (primes.size() > 0) {
+                    generator.currentNumber = primes.get(primes.size() - 1);
                 }
                 generator.primes = primes;
                 generator.fileHandler = fileHandler;
@@ -92,7 +92,7 @@ public class MainWindowController {
             calculatorThread.start();
         } else {
             generator.shouldRun = false;
-            while (calculatorThread.isAlive())  {
+            while (calculatorThread.isAlive()) {
 
             }
             /*fileHandler.save(primes.subList(originalIndex,primes.size()));
